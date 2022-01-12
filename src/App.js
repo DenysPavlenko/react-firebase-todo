@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import './app.css';
+import { useDispatch } from 'react-redux';
+import { allTodosDone, deleteDoneTodos } from './store/todos/actions';
+import Todos from './components/todos/todos';
+import AddTodo from './components/add-todo/add-todo';
+import ColorsFilter from './components/colors-filter/colors-filter';
+import StatusFilter from './components/status-filter/status-filter';
 
-function App() {
+export default function App() {
+  const dispatch = useDispatch();
+  const allDoneHandler = () => dispatch(allTodosDone());
+  const deleteDoneHandler = () => dispatch(deleteDoneTodos());
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTodo />
+      <br />
+      <Todos />
+      <br />
+      <p>Actions</p>
+      <button onClick={allDoneHandler}>Mark all done</button>
+      <button onClick={deleteDoneHandler}>Delete done todos</button>
+      <br />
+      <br />
+      <ColorsFilter />
+      <br />
+      <StatusFilter />
     </div>
   );
 }
-
-export default App;
