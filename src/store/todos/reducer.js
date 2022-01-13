@@ -26,33 +26,18 @@ export const todosReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case 'todos/toggleTodoDone':
-      return {
-        ...state,
-        enteties: state.enteties.map((todo) =>
-          todo.id === action.payload ? { ...todo, done: !todo.done } : todo
-        ),
-      };
+    // case 'todos/toggleTodoDone':
+    //   return {
+    //     ...state,
+    //     enteties: state.enteties.map((todo) =>
+    //       todo.id === action.payload ? { ...todo, done: !todo.done } : todo
+    //     ),
+    //   };
 
     case 'todos/allDone':
       return {
         ...state,
         enteties: state.enteties.map((todo) => ({ ...todo, done: true })),
-      };
-
-    case 'todos/addTodo':
-      return {
-        ...state,
-        enteties: [...state.enteties, action.payload],
-      };
-
-    case 'todos/updateTodoId':
-      const { oldId, newId } = action.payload;
-      return {
-        ...state,
-        enteties: state.enteties.map((todo) => {
-          return todo.id === oldId ? { ...todo, id: newId } : todo;
-        }),
       };
 
     case 'todos/changeTodoColor':
@@ -64,11 +49,11 @@ export const todosReducer = (state = initialState, action) => {
         }),
       };
 
-    case 'todos/deleteTodo':
-      return {
-        ...state,
-        enteties: state.enteties.filter((todo) => todo.id !== action.payload),
-      };
+    // case 'todos/deleteTodo':
+    //   return {
+    //     ...state,
+    //     enteties: state.enteties.filter((todo) => todo.id !== action.payload),
+    //   };
 
     case 'todos/deleteDoneTodos':
       return {
