@@ -104,7 +104,7 @@ const Sidebar = ({ width = 240 }) => {
           {data.map(({ title, id }) => (
             <ListItem
               key={id}
-              selected={`/${id}` === pathname}
+              selected={`/list/${id}` === pathname}
               secondaryAction={
                 <IconButton
                   color="primary"
@@ -116,7 +116,11 @@ const Sidebar = ({ width = 240 }) => {
               }
               disablePadding
             >
-              <ListItemButton role={undefined} component={CustomLink} to={id}>
+              <ListItemButton
+                role={undefined}
+                component={CustomLink}
+                to={`list/${id}`}
+              >
                 <ListItemIcon>
                   <ListIcon />
                 </ListItemIcon>

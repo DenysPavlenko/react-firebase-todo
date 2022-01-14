@@ -1,22 +1,21 @@
-import FirebaseService from '../../services/firebaseService';
-const firebaseService = new FirebaseService();
+import * as todosApi from 'api/todosApi';
 
-export const todosLoading = () => ({ type: 'todos/todoLoading' });
+export const todosLoading = () => ({ type: 'todos/todosLoading' });
 
 export const todosLoaded = (data) => ({
-  type: 'todos/todoLoaded',
+  type: 'todos/todosLoaded',
   payload: data,
 });
 
 export const todosError = (error) => ({
-  type: 'todos/todoError',
+  type: 'todos/todosError',
   payload: error,
 });
 
-export const fetchTodos = () => (dispatch) => {
+export const fetchTodos = () => async (dispatch) => {
   try {
     dispatch(todosLoading());
-    firebaseService.getTodos((todos) => {
+    todosApi.onTodosSnapshot((todos) => {
       dispatch(todosLoaded(todos));
     });
   } catch (error) {
@@ -25,28 +24,15 @@ export const fetchTodos = () => (dispatch) => {
 };
 
 export const addTodo = (todo) => () => {
-  firebaseService.addTodo(todo);
+  todosApi.addTodo(todo);
 };
 
 export const deleteTodo = (id) => () => {
-  firebaseService.deleteTodo(id);
+  todosApi.deleteTodo(id);
 };
 
-export const toggleTodoDone = (id) => () => {
-  firebaseService.toggleTodoDone(id);
-};
-
-export const deleteDoneTodos = () => (dispatch) => {
-  dispatch({ type: 'todos/deleteDoneTodos' });
-  // todoService.deleteDoneTodos();
-};
-
-export const changeTodoColor = (id, color) => (dispatch) => {
-  dispatch({ type: 'todos/changeTodoColor', payload: { id, color } });
-  // todoService.toggleTodoDone(id);
-};
-
-export const allTodosDone = () => (dispatch) => {
-  dispatch({ type: 'todos/allDone' });
-  // todoService.allTodosDone();
-};
+export const toggleTodoComplete =
+  ({ id, completed }) =>
+  () => {
+    todosApi.toggleTodoComplete(id, completed);
+  };

@@ -1,5 +1,4 @@
-import FirebaseService from 'services/firebaseService';
-const firebaseService = new FirebaseService();
+import * as listsApi from 'api/listApi';
 
 export const listsLoading = () => ({ type: 'lists/listsLoading' });
 
@@ -16,7 +15,7 @@ export const listsError = (error) => ({
 export const fetchLists = () => (dispatch) => {
   dispatch(listsLoading());
   try {
-    firebaseService.onListsSnapshot((lists) => {
+    listsApi.onListsSnapshot((lists) => {
       dispatch(listsLoaded(lists));
     });
   } catch (error) {
@@ -25,9 +24,9 @@ export const fetchLists = () => (dispatch) => {
 };
 
 export const addList = (list) => () => {
-  firebaseService.addList(list);
+  listsApi.addList(list);
 };
 
 export const deleteList = (id) => () => {
-  firebaseService.deleteList(id);
+  listsApi.deleteList(id);
 };

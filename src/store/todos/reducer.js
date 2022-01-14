@@ -1,64 +1,39 @@
 const initialState = {
   status: 'idle',
-  enteties: [],
+  data: [],
   error: null,
 };
 
 export const todosReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'todos/todoLoading':
+    case 'todos/todosLoading':
       return {
         ...state,
         status: 'loading',
       };
 
-    case 'todos/todoLoaded':
+    case 'todos/todosLoaded':
       return {
         ...state,
-        enteties: action.payload,
-        status: 'succeeded',
+        data: action.payload,
+        status: 'loaded',
       };
 
-    case 'todos/todoError':
+    case 'todos/todosError':
       return {
         ...state,
-        status: 'error',
         error: action.payload,
+        status: 'error',
       };
 
-    // case 'todos/toggleTodoDone':
-    //   return {
-    //     ...state,
-    //     enteties: state.enteties.map((todo) =>
-    //       todo.id === action.payload ? { ...todo, done: !todo.done } : todo
-    //     ),
-    //   };
-
-    case 'todos/allDone':
+    case 'todos/toggleTodoComplete':
       return {
         ...state,
-        enteties: state.enteties.map((todo) => ({ ...todo, done: true })),
-      };
-
-    case 'todos/changeTodoColor':
-      const { id, color } = action.payload;
-      return {
-        ...state,
-        enteties: state.enteties.map((todo) => {
-          return todo.id === id ? { ...todo, color } : todo;
-        }),
-      };
-
-    // case 'todos/deleteTodo':
-    //   return {
-    //     ...state,
-    //     enteties: state.enteties.filter((todo) => todo.id !== action.payload),
-    //   };
-
-    case 'todos/deleteDoneTodos':
-      return {
-        ...state,
-        enteties: state.enteties.filter((todo) => !todo.done),
+        data: state.data.map((todo) =>
+          todo.id === action.payload
+            ? { ...todo, completed: !todo.completed }
+            : todo
+        ),
       };
 
     default:
